@@ -1,16 +1,17 @@
 {
-  "name": "priceai",
+  "name": "freshcut",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port=3000",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/genai": "^1.29.0",
     "framer-motion": "^11.0.0",
-    "lucide-react": "^0.263.1",
+    "lucide-react": "^0.546.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
