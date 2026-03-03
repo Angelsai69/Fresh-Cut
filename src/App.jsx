@@ -15,7 +15,7 @@ const TABS = [
 
 // Per-tab indicator + icon colors
 const TAB_COLORS = {
-  home:    { active: tokens.colors.navy,      indicator: `linear-gradient(90deg, ${tokens.colors.navy}, #1A3D5C)` },
+  home:    { active: tokens.colors.coral,     indicator: `linear-gradient(90deg, ${tokens.colors.coral}, #FF4757)` },
   list:    { active: tokens.colors.mintEnd,   indicator: `linear-gradient(90deg, ${tokens.colors.mintStart}, ${tokens.colors.mintEnd})` },
   share:   { active: tokens.colors.lemon,     indicator: `linear-gradient(90deg, ${tokens.colors.lemon}, #F0B429)` },
   profile: { active: tokens.colors.mintStart, indicator: `linear-gradient(90deg, rgba(123,232,200,0.6), ${tokens.colors.mintStart})` },

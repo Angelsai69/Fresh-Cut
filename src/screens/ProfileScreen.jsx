@@ -9,7 +9,7 @@ const STATS = [
   { label: 'Saved',  value: '$214' },
 ]
 
-const MENU_ITEMS = ['Notifications', 'Preferred Stores', 'Price Alerts', 'Privacy', 'Help & Support']
+const MENU_ITEMS = ['Notifications', 'Preferred Stores', 'Price Alerts']
 
 const DEFAULT_LOCATIONS = [
   { id: 1, name: 'Home',   address: '142 Elm St, Gaithersburg MD', emoji: '🏠', primary: true  },
