@@ -85,11 +85,12 @@ export const tokens = {
 }
 
 // Computed theme by mode
-// glass = 25% opacity frosted bars as requested
+// glass = 40% opacity frosted bars
 export const getTheme = (dark) => ({
+  isDark:  dark,
   bg:      dark ? tokens.colors.bgDark    : tokens.colors.bgLight,
   card:    dark ? tokens.colors.cardDark  : tokens.colors.white,
-  glass:   dark ? 'rgba(14,31,42,0.25)'   : 'rgba(245,247,248,0.25)',
+  glass:   dark ? 'rgba(14,31,42,0.40)'   : 'rgba(245,247,248,0.40)',
   text:    dark ? 'rgba(255,255,255,0.92)': tokens.colors.textPrimary,
   textSub: dark ? 'rgba(255,255,255,0.48)': tokens.colors.textSecondary,
   border:  dark ? 'rgba(255,255,255,0.07)': 'rgba(15,43,70,0.08)',

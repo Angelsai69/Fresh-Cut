@@ -1,18 +1,25 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Home, ShoppingCart, User, Sparkles, Share2, Gift, Instagram, Twitter, Facebook } from 'lucide-react'
+import { Home, ShoppingCart, User, Sparkles, Share2, Instagram, Twitter, Facebook } from 'lucide-react'
 import { tokens, getTheme } from './tokens'
 import { HomeScreen } from './screens/HomeScreen'
 import { ListScreen } from './screens/ListScreen'
 import { ProfileScreen } from './screens/ProfileScreen'
 
 const TABS = [
-  { id: 'home',    icon: Home,         label: 'Home' },
+  { id: 'home',    icon: Home,         label: 'Home'    },
   { id: 'list',    icon: ShoppingCart, label: 'My List' },
+  { id: 'share',   icon: Share2,       label: 'Share'   },
   { id: 'profile', icon: User,         label: 'Profile' },
-  { id: 'share',   icon: Share2,       label: 'Share' },
-  { id: 'bonus',   icon: Gift,         label: 'Bonus' },
 ]
+
+// Per-tab indicator + icon colors
+const TAB_COLORS = {
+  home:    { active: tokens.colors.navy,      indicator: `linear-gradient(90deg, ${tokens.colors.navy}, #1A3D5C)` },
+  list:    { active: tokens.colors.mintEnd,   indicator: `linear-gradient(90deg, ${tokens.colors.mintStart}, ${tokens.colors.mintEnd})` },
+  share:   { active: tokens.colors.lemon,     indicator: `linear-gradient(90deg, ${tokens.colors.lemon}, #F0B429)` },
+  profile: { active: tokens.colors.mintStart, indicator: `linear-gradient(90deg, rgba(123,232,200,0.6), ${tokens.colors.mintStart})` },
+}
 
 const SOCIAL = [
   { icon: Instagram, label: 'Instagram' },
@@ -167,7 +174,6 @@ export default function App() {
           {activeTab === 'list'    && <ListScreen    t={t} key="list" />}
           {activeTab === 'profile' && <ProfileScreen t={t} dark={dark} setDark={setDark} key="profile" />}
           {activeTab === 'share'   && <ShareScreen   t={t} key="share" />}
-          {activeTab === 'bonus'   && <BonusScreen   t={t} key="bonus" />}
         </AnimatePresence>
 
         {/* ── LEGAL FOOTER ── */}
@@ -247,12 +253,7 @@ export default function App() {
           {TABS.map((tab) => {
             const Icon = tab.icon
             const isActive = activeTab === tab.id
-            // Special colors for Share and Bonus
-            const specialColor = tab.id === 'share'
-              ? tokens.colors.lemon
-              : tab.id === 'bonus'
-              ? tokens.colors.coral
-              : tokens.colors.mintEnd
+            const tabColor = TAB_COLORS[tab.id]
             return (
               <motion.button
                 key={tab.id}
@@ -263,7 +264,7 @@ export default function App() {
                   display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3,
                   padding: '4px 12px', border: 'none', background: 'transparent',
                   cursor: 'pointer', position: 'relative',
-                  color: isActive ? specialColor : t.textSub,
+                  color: isActive ? tabColor.active : t.textSub,
                   transition: 'color 0.2s',
                   minWidth: 52,
                 }}
@@ -275,13 +276,7 @@ export default function App() {
                       position: 'absolute', top: -1,
                       width: 20, height: 3,
                       borderRadius: tokens.radius.full,
-                      background: isActive
-                        ? (tab.id === 'share'
-                          ? `linear-gradient(90deg, ${tokens.colors.lemon}, #F0B429)`
-                          : tab.id === 'bonus'
-                          ? `linear-gradient(90deg, ${tokens.colors.coral}, #FF4757)`
-                          : `linear-gradient(90deg, ${tokens.colors.mintStart}, ${tokens.colors.mintEnd})`)
-                        : 'transparent',
+                      background: tabColor.indicator,
                     }}
                     transition={tokens.motion.standard}
                   />
@@ -358,86 +353,6 @@ function ShareScreen({ t }) {
           <span style={{ fontSize: tokens.font.body.size, color: t.text, fontWeight: 500 }}>{item.label}</span>
         </motion.div>
       ))}
-    </motion.div>
-  )
-}
-
-// ── BONUS SCREEN ──────────────────────────────────────────────
-function BonusScreen({ t }) {
-  const bonuses = [
-    { emoji: '🏆', title: 'Weekly Saver', desc: 'Save 20%+ three weeks in a row', progress: 66, reward: '$10 credit' },
-    { emoji: '⭐', title: 'First Compare', desc: 'Compare your first store basket', progress: 100, reward: 'Complete!' },
-    { emoji: '🎯', title: 'List Pro', desc: 'Add 10+ items to your list', progress: 60, reward: '$5 credit' },
-    { emoji: '💎', title: 'Loyalty Streak', desc: 'Use Fresh~CUT 7 days in a row', progress: 43, reward: '$15 credit' },
-  ]
-  return (
-    <motion.div key="bonus"
-      initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -16 }} transition={tokens.motion.standard}
-      style={{ padding: '32px 24px 0' }}
-    >
-      <h1 style={{ fontSize: tokens.font.h1.size, fontWeight: 600, letterSpacing: '-0.3px', margin: '0 0 8px', color: t.text }}>
-        Bonus Rewards
-      </h1>
-      <p style={{ fontSize: tokens.font.body.size, color: t.textSub, margin: '0 0 24px' }}>
-        Complete challenges to earn credits.
-      </p>
-      {/* Balance card */}
-      <div style={{
-        background: `linear-gradient(135deg, ${tokens.colors.coral}, #FF4757)`,
-        borderRadius: tokens.radius.hero, padding: '24px', marginBottom: 24,
-        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-      }}>
-        <div>
-          <p style={{ fontSize: '12px', fontWeight: 700, color: 'rgba(255,255,255,0.7)', margin: '0 0 6px', textTransform: 'uppercase', letterSpacing: '0.8px' }}>Credit Balance</p>
-          <p style={{ fontSize: '36px', fontWeight: 700, color: 'white', margin: 0, letterSpacing: '-0.5px' }}>$15.00</p>
-        </div>
-        <motion.button whileTap={{ scale: 0.94 }} style={{
-          padding: '10px 20px', borderRadius: tokens.radius.full,
-          background: 'rgba(255,255,255,0.2)', border: '1px solid rgba(255,255,255,0.3)',
-          cursor: 'pointer', fontSize: '13px', fontWeight: 700, color: 'white',
-        }}>Redeem</motion.button>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        {bonuses.map((b) => (
-          <div key={b.title} style={{
-            background: t.card, borderRadius: tokens.radius.cardLg, padding: '18px 20px', boxShadow: t.shadow1,
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 12 }}>
-              <div style={{
-                width: 44, height: 44, borderRadius: tokens.radius.card, fontSize: 22,
-                background: `linear-gradient(135deg, ${tokens.colors.mintStart}18, ${tokens.colors.mintEnd}18)`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-              }}>{b.emoji}</div>
-              <div style={{ flex: 1 }}>
-                <p style={{ fontSize: '15px', fontWeight: 600, color: t.text, margin: 0 }}>{b.title}</p>
-                <p style={{ fontSize: '13px', color: t.textSub, margin: '2px 0 0' }}>{b.desc}</p>
-              </div>
-              <span style={{
-                fontSize: '12px', fontWeight: 700,
-                color: b.progress === 100 ? tokens.colors.savingsGreen : tokens.colors.mintEnd,
-                background: b.progress === 100 ? `${tokens.colors.savingsGreen}15` : `${tokens.colors.mintEnd}15`,
-                padding: '4px 10px', borderRadius: tokens.radius.full,
-              }}>{b.reward}</span>
-            </div>
-            {/* Progress bar */}
-            <div style={{ height: 6, borderRadius: tokens.radius.full, background: `${tokens.colors.mintStart}22`, overflow: 'hidden' }}>
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: `${b.progress}%` }}
-                transition={{ delay: 0.2, duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-                style={{
-                  height: '100%', borderRadius: tokens.radius.full,
-                  background: b.progress === 100
-                    ? `linear-gradient(90deg, ${tokens.colors.savingsGreen}, #16A34A)`
-                    : `linear-gradient(90deg, ${tokens.colors.mintStart}, ${tokens.colors.mintEnd})`,
-                }}
-              />
-            </div>
-            <p style={{ fontSize: '11px', color: t.textSub, margin: '6px 0 0', textAlign: 'right' }}>{b.progress}%</p>
-          </div>
-        ))}
-      </div>
     </motion.div>
   )
 }

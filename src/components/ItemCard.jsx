@@ -42,7 +42,7 @@ export function ItemCard({ item, t, onRemove }) {
         <p
           style={{
             fontSize: tokens.font.body.size,
-            fontWeight: 500,
+            fontWeight: 450,
             color: t.text,
             margin: 0,
             lineHeight: 1.3,

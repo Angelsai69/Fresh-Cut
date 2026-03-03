@@ -17,14 +17,51 @@ function ParallaxHero({ t }) {
     <section
       ref={ref}
       style={{
-        padding: '48px 24px 40px',
+        padding: '40px 24px 40px',
         maxWidth: 640,
         margin: '0 auto',
         textAlign: 'center',
         position: 'relative',
       }}
     >
-      {/* Main headline */}
+      {/* ── TRUST BADGES — above headline ── */}
+      <motion.div
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15, ...tokens.motion.standard }}
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          gap: 20,
+          marginBottom: 20,
+          flexWrap: 'wrap',
+        }}
+      >
+        {[
+          { dot: tokens.colors.mintEnd,  label: '3 stores compared' },
+          { dot: tokens.colors.lemon,    label: '27% avg savings'   },
+          { dot: tokens.colors.coral,    label: 'Real-time prices'  },
+        ].map(({ dot, label }) => (
+          <div key={label} style={{
+            display: 'flex', alignItems: 'center', gap: 6,
+            fontSize: '12px',
+            color: t.textSub,
+            fontWeight: 450,        // secondary weight
+            letterSpacing: '0.1px',
+          }}>
+            <span style={{
+              width: 6, height: 6,
+              borderRadius: '50%',
+              background: dot,
+              display: 'inline-block',
+              flexShrink: 0,
+            }} />
+            {label}
+          </div>
+        ))}
+      </motion.div>
+
+      {/* ── MAIN HEADLINE ── */}
       <motion.h1
         style={{
           y: titleY,
@@ -46,10 +83,8 @@ function ParallaxHero({ t }) {
             transition={{ delay: 0.6, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             style={{
               position: 'absolute',
-              left: 0,
-              bottom: -6,
-              height: 3,
-              width: '100%',
+              left: 0, bottom: -6,
+              height: 3, width: '100%',
               background: mintGradient,
               borderRadius: tokens.radius.full,
               transformOrigin: 'left',
@@ -61,18 +96,13 @@ function ParallaxHero({ t }) {
             initial={{ x: '-120%' }}
             animate={{ x: '120%' }}
             transition={{
-              delay: 1.4,
-              duration: 4,
-              ease: 'linear',
-              repeat: Infinity,
-              repeatDelay: 3,
+              delay: 1.4, duration: 4,
+              ease: 'linear', repeat: Infinity, repeatDelay: 3,
             }}
             style={{
               position: 'absolute',
-              bottom: -6,
-              left: 0,
-              height: 3,
-              width: '33%',
+              bottom: -6, left: 0,
+              height: 3, width: '33%',
               background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.85), transparent)',
               filter: 'blur(2px)',
               display: 'block',
@@ -81,15 +111,15 @@ function ParallaxHero({ t }) {
         </span>
       </motion.h1>
 
-      {/* Subtitle */}
+      {/* ── SUBTITLE ── */}
       <motion.p
         style={{
           y: subtitleY,
-          marginTop: 28,
+          marginTop: 20,
           fontSize: '18px',
           lineHeight: 1.6,
           color: t.textSub,
-          fontWeight: 400,
+          fontWeight: 450,          // secondary/body weight
           maxWidth: 420,
           marginLeft: 'auto',
           marginRight: 'auto',
@@ -98,7 +128,7 @@ function ParallaxHero({ t }) {
         Compare nearby stores. Discover the Big 3 deals. Shop with confidence.
       </motion.p>
 
-      {/* ZIP + CTA */}
+      {/* ── ZIP + CTA ── */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
@@ -107,7 +137,7 @@ function ParallaxHero({ t }) {
           display: 'flex',
           justifyContent: 'center',
           gap: 10,
-          marginTop: 32,
+          marginTop: 28,
           flexWrap: 'wrap',
         }}
       >
@@ -126,7 +156,9 @@ function ParallaxHero({ t }) {
             style={{
               flex: 1, border: 'none', outline: 'none',
               background: 'transparent',
-              fontSize: '15px', color: t.text,
+              fontSize: '15px',
+              fontWeight: 450,
+              color: t.text,
               fontFamily: 'inherit',
             }}
           />
@@ -149,33 +181,6 @@ function ParallaxHero({ t }) {
         >
           Compare Prices
         </motion.button>
-      </motion.div>
-
-      {/* Trust badges */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8, ...tokens.motion.slow }}
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          gap: 20,
-          marginTop: 24,
-          flexWrap: 'wrap',
-        }}
-      >
-        {['3 stores compared', '27% avg savings', 'Real-time prices'].map((badge) => (
-          <div key={badge} style={{
-            display: 'flex', alignItems: 'center', gap: 6,
-            fontSize: '12px', color: t.textSub, fontWeight: 500,
-          }}>
-            <span style={{
-              width: 6, height: 6, borderRadius: '50%',
-              background: tokens.colors.mintEnd, display: 'inline-block',
-            }} />
-            {badge}
-          </div>
-        ))}
       </motion.div>
     </section>
   )
@@ -202,19 +207,29 @@ export function HomeScreen({ t }) {
           padding: '0 24px 12px',
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
         }}>
-          <h2 style={{ fontSize: tokens.font.section.size, fontWeight: 500, margin: 0, color: t.text }}>
+          <h2 style={{
+            fontSize: tokens.font.section.size,
+            fontWeight: 600,
+            margin: 0,
+            color: t.text,
+          }}>
             Top Essentials
           </h2>
-          <span style={{ fontSize: tokens.font.micro.size, color: tokens.colors.mintEnd, fontWeight: 600, cursor: 'pointer' }}>
+          <span style={{
+            fontSize: tokens.font.micro.size,
+            color: tokens.colors.mintEnd,
+            fontWeight: 600,
+            cursor: 'pointer',
+          }}>
             See all
           </span>
         </div>
         <div style={{
           display: 'flex', gap: 12, overflowX: 'auto',
           padding: '4px 24px 8px',
-          scrollbarWidth: 'none',     // Firefox
-          msOverflowStyle: 'none',    // IE/Edge
-          WebkitOverflowScrolling: 'touch', // iOS momentum
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+          WebkitOverflowScrolling: 'touch',
         }}>
           {TOP_10.map((item) => (
             <ProductTile
@@ -233,7 +248,12 @@ export function HomeScreen({ t }) {
 
       {/* Store Comparisons */}
       <section style={{ padding: '32px 24px 0' }}>
-        <h2 style={{ fontSize: tokens.font.section.size, fontWeight: 500, margin: '0 0 16px', color: t.text }}>
+        <h2 style={{
+          fontSize: tokens.font.section.size,
+          fontWeight: 600,
+          margin: '0 0 16px',
+          color: t.text,
+        }}>
           Stores Nearby
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>

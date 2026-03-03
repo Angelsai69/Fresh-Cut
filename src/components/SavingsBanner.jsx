@@ -41,7 +41,7 @@ export function SavingsBanner() {
             fontSize: tokens.font.small.size,
             color: 'rgba(255,255,255,0.75)',
             margin: '6px 0 0',
-            fontWeight: 500,
+            fontWeight: 450,
           }}>
             at Trader Joe's · Best price today
           </p>
@@ -77,36 +77,36 @@ export function SavingsBanner() {
         </div>
       </div>
 
-      {/* Stat pills — LIGHT BLUE tint as requested */}
+      {/* Stat pills — deep navy bg, mint green text */}
       <div style={{ marginTop: 20, display: 'flex', gap: 8 }}>
 
-        {/* Percentage pill — light sky-blue bg */}
+        {/* Percentage pill */}
         <div style={{
           flex: 1,
-          background: 'rgba(200,240,232,0.28)',    // light aqua-blue tint
+          background: tokens.colors.navy,
           borderRadius: tokens.radius.sm,
           padding: '10px 16px',
           display: 'flex',
           alignItems: 'center',
           gap: 8,
-          border: '1px solid rgba(200,240,232,0.4)',
+          boxShadow: '0 2px 12px rgba(15,43,70,0.28)',
         }}>
-          <TrendingDown size={15} color="#C8F0E8" />
-          <span style={{ fontSize: tokens.font.micro.size, fontWeight: 600, color: '#C8F0E8' }}>
+          <TrendingDown size={15} color={tokens.colors.mintStart} />
+          <span style={{ fontSize: tokens.font.micro.size, fontWeight: 600, color: tokens.colors.mintStart }}>
             27% below avg. price
           </span>
         </div>
 
-        {/* Stores count pill — light sky-blue bg */}
+        {/* Stores count pill */}
         <div style={{
-          background: 'rgba(200,240,232,0.28)',
+          background: tokens.colors.navy,
           borderRadius: tokens.radius.sm,
           padding: '10px 16px',
           display: 'flex',
           alignItems: 'center',
-          border: '1px solid rgba(200,240,232,0.4)',
+          boxShadow: '0 2px 12px rgba(15,43,70,0.28)',
         }}>
-          <span style={{ fontSize: tokens.font.micro.size, fontWeight: 600, color: '#C8F0E8' }}>
+          <span style={{ fontSize: tokens.font.micro.size, fontWeight: 600, color: tokens.colors.mintStart }}>
             3 stores compared
           </span>
         </div>
